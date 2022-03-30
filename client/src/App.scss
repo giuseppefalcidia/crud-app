@@ -1,0 +1,162 @@
+$color-gray: #666;
+$color-black: #000;
+$stripe-height: 7px;
+$btn-color: $color-gray;
+$btn-background: #fff;
+$btn-color-hover: #fff;
+$btn-background-hover: $color-gray;
+$border-color: $color-gray;
+$border-color-hover: $color-black;
+$font-size: 18px;
+
+@mixin reset-button {
+  overflow: visible;
+  margin: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+  -moz-user-select: text;
+
+  &:-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}
+
+@keyframes stripe-slide {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+html {
+  min-height: 100%; /* make sure it is at least as tall as the viewport */
+  position: relative;
+}
+
+body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /*  font-family: sans-serif; */
+}
+
+.btn {
+  @include reset-button;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 16px 36px 22px;
+  background-color: $btn-background;
+  color: $btn-color;
+  border: 2px solid $border-color;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  transition: all 0.5s ease;
+
+  &--stripe {
+    overflow: hidden;
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      height: $stripe-height;
+      width: 100%;
+      background-image: repeating-linear-gradient(
+        45deg,
+        $border-color,
+        $border-color 1px,
+        transparent 2px,
+        transparent 5px
+      );
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-top: 1px solid $border-color;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-size: $stripe-height $stripe-height;
+    }
+
+    &:hover {
+      background-color: $btn-background-hover;
+      color: $btn-color-hover;
+      border-color: $border-color-hover;
+
+      &:after {
+        background-image: repeating-linear-gradient(
+          45deg,
+          $btn-color-hover,
+          $btn-color-hover 1px,
+          transparent 2px,
+          transparent 5px
+        );
+        border-top: 1px solid $border-color-hover;
+        animation: stripe-slide 12s infinite linear forwards;
+      }
+    }
+  }
+
+  &--large {
+    width: 50%;
+  }
+
+  &--radius {
+    border-radius: 36px;
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+//! check why margin is not working - wrong
+.information {
+  margin-top: 8%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: $font-size;
+}
+
+.information input {
+  width: 220px;
+  height: 50px;
+  font-size: $font-size;
+  text-align: center;
+  padding-left: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  color: $color-black;
+  border: 2px solid $border-color;
+}
+
+.information-table {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+  color: $btn-color;
+  border: 2px solid $border-color;
+  margin: 5%;
+}
+
+.information-table h4 {
+  color: $color-black;
+  border-bottom: 1px solid $border-color;
+  padding: 1px;
+  font-size: $font-size;
+}
